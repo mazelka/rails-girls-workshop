@@ -51,7 +51,7 @@
                         <% else %>
                           <i class="main-table__check icon icon-circle-check"></i>
                         <% end %>
-                        <%= goal.title %>
+                        <%= link_to goal.title, goal_path(goal) %>
                       </div>
                     </td>
                     <td>

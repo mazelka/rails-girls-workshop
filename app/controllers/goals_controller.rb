@@ -8,6 +8,10 @@ class GoalsController < ApplicationController
     @goal = Goal.new
   end
 
+  def show
+    @goal = Goal.find_by(id: params[:id])
+  end
+
   def create
     @goal = Goal.new(goal_params)
     if @goal.save
@@ -16,6 +20,25 @@ class GoalsController < ApplicationController
     else
       flash[:error] = 'Please fill in all necessary fields.'
       render 'new'
+    end
+  end
+
+  def edit
+    @goal = Goal.find_by(id: params[:id])
+  end
+
+  def update
+    @goal = Goal.find_by(id: params[:id])
+    if @goal.update_attributes(goal_params)
+      flash[:success] = 'Your goal has been successfully updated'
+      if @goal.complete?
+        redirect_to goals_path(filter: 'completed')
+      else
+        redirect_to goals_path
+      end
+    else
+      flash[:error] = 'Please fill in all necessary fields.'
+      render 'edit'
     end
   end
 
