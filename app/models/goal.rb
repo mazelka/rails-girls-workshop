@@ -14,6 +14,9 @@ class Goal < ApplicationRecord
 
   enum priority: { low: 0, medium: 1, high: 2 }
 
+  scope :completed, -> { where(complete: true) }
+  scope :incomplete, -> { where(complete: false) }
+
   private
 
   def due_date_cannot_be_in_the_past

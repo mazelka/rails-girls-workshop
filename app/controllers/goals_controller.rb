@@ -1,5 +1,7 @@
 class GoalsController < ApplicationController
   def index
+    @goals = filtered_goals
+    @goals.order('complete, due_date, priority DESC, title')
   end
 
   def new
@@ -14,6 +16,16 @@ class GoalsController < ApplicationController
     else
       flash[:error] = 'Please fill in all necessary fields.'
       render 'new'
+    end
+  end
+
+  def filtered_goals
+    if params[:filter] == 'completed'
+      Goal.completed
+    elsif params[:filter] == 'incomplete'
+      Goal.incomplete
+    else
+      Goal.all
     end
   end
 
