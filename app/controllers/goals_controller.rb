@@ -52,6 +52,14 @@ class GoalsController < ApplicationController
     end
   end
 
+  def destroy
+    @goal = Goal.find_by(id: params[:id])
+    @goal.destroy
+    flash[:info] = 'Your goal has been successfully deleted'
+    redirect_to goals_path
+  end
+
+
   def goal_params
     params.require(:goal).permit(:title, :description, :priority, :due_date, :complete)
   end
