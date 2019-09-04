@@ -18,9 +18,9 @@
 
       <div class="goals-page__nav main-card">
         <div class="main-tab">
-          <a href="/" class="main-tab__item main-tab__item--active">All 8</a>
-          <a href="/" class="main-tab__item">Incomplete  4</a>
-          <a href="/" class="main-tab__item">Completed  4</a>
+          <%= link_to "All #{Goal.count}", goals_path,  class: "main-tab__item #{'main-tab__item--active' if params[:filter].nil?}" %>
+          <%= link_to "Incomplete #{Goal.incomplete.count}", goals_path(filter: 'incomplete'),  class: "main-tab__item #{'main-tab__item--active' if params[:filter] == 'incomplete'}" %>
+          <%= link_to "Completed #{Goal.completed.count}", goals_path(filter: 'completed'),  class: "main-tab__item #{'main-tab__item--active' if params[:filter] == 'completed'} " %>
         </div>
         <div class="d-none d-md-block">
           <%= link_to 'Create a Goal', new_goal_path,  class: "main-btn main-btn--xs" %>
